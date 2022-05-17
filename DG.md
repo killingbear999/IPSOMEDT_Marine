@@ -24,14 +24,25 @@
 -----
 
 ## 1. Introduction
+IPSOMEDT_Marine is a tool for marine engine development.
+This developer guide provides information on the architecture and design of the application. 
+It aims to provide a fast and efficient reference for software understanding, testing, debugging, and maintenance.
+It will not only help you get started as a IPSOMEDT_Marine contributor, but that you will find useful to refer to even if you are already a contributor of this project.
 
 ## 2. Setting up
+As a developer, this program requires the installation of MATLAB.
 
 ## 3. Design
 ### 3.1 High Level Architecture
 
 ## 4. Implementation
 ### 4.1 Project Info
+* `AuthorEditFieldValueChanged`:
+  * Updates variable based on user inputs for **Author**
+* `DateEditFieldValueChanged`:
+  * Update variable based on user inputs for **Date**
+* `ProjectEditFieldValueChanged`:
+  * Update variable based on user inputs for **Project**
 
 ### 4.2 Architecture
 * `updateSingleLineDiagram`:
@@ -42,18 +53,32 @@
   * Updates variables based on user inputs for **Architecture Parameters**
   * Updates variables based on user inputs for **Busbar Type**
   * Updates variables based on user inputs for **Number of Components per Busbar**
-  * Calls `ClearTableButtonPushed`, `updateOperationalProfile`, `updateSingleLineDiagram`, and `updateSfcResultsTable`
   * Adds selection options for **Plot selection** in **Simulate**
   * Adds selection options for **Left plot** and **Right plot** in **Results**
   * Toggles visibility for **Component Selection**
   * Enables **Run GT-Suite checkbox** in **Results**
   * Enables editability for **Component Selection**
+  * Calls `ClearTableButtonPushed`, `updateOperationalProfile`, `updateSingleLineDiagram`, and `updateSfcResultsTable`
+* `BusbartypeButtonGroupSelectionChanged`:
+  * Enables **Frequency (Hz)** based on user selected busbar type
+* `ShoreConnectionAvailDropDownValueChanged`, `BoostAlloweDropDownValueChanged`, `nDgDropDownValueChanged`, `nTdDropDownValueChanged`,
+  `nAuxLoadDropDownValueChanged`, `nEssDropDownValueChanged`, `nHsgDropDownValueChanged`, `nFCDropDownValueChanged`:
+  * Calls `updateArchitecture`
   
 ### 4.3 Operational Profile
 * `updateOperationalProfile`:
   * Enables and initialises entry fields for **Average Load**
   * Populates column names on **Table**
   * Initialises table variables
+* `PropellermModeDropDownValueChanged`:
+  * Updates and initialises **HSG prop. speed (rpm)** based on user selection for **HSG propeller mode**
+* `AutogeneratepeopellerrpmCheckBoxValueChanged`:
+  * Enables **HSG prop. speed (rpm)** based on user selection for **Auto-generate propeller rpm** 
+  * Calls `HSGproploadkWEditFieldValueChanged`
+* `HSGproploadkWEditFieldValueChanged`:
+  * Computes and updates column 1 of **HSG prop. speed (rpm)**
+* `HSGproploadkWEditField2ValueChanged`:
+  * Computes and updates column 2 of **HSG prop. speed (rpm)**
 
 ### 4.4 Component Selection
 * `updateComponentSelectionTable`:
@@ -106,6 +131,8 @@
 `ResultsRightaxisDropDownValueChanged`, `updateResultsTable`
 * `SaveSessionMenuSelected`:
   * Saves variables values and exports to .mat file
+* `RefresheddisplaymessageMenuSelected`:
+  * Displays 'ready' in green as the **Ready Map**
 
 ### 4.11 Ready Map
 * `displayErrorMessage`:
