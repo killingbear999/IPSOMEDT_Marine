@@ -103,4 +103,10 @@
 * `save_close_excelfile`:
   * Saves the results to an Excel file
 * `startUpFcn`:
-  * 
+  * Imports component libraries, functions, and testing files
+  * Calls `initializeComponentTable`, `updateArchitecture`, and `updateComponentSelectionTable`
+  * Updates variables based on user inputs for **Project Info**
+  * Adds date for user selection
+  * Initialises **Ship Resistance** Table in **Performance**
+  * Formats alignment for **Fuel Consumption Table** in **Results** and **Ship Resistance Table** in **Performance**
+
