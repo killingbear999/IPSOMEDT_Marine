@@ -61,6 +61,7 @@
   * Sets display style and plots results on **Simulation Plots**
   * Plots GT results on **Simulation Plots** if selected
 ### 4.8 Performance
+*
 ### 4.9 Optimize
 ### 4.10 Menu
 ### 4.11 Ready Map
