@@ -92,6 +92,20 @@
   * Checks optimisation constraints
 
 ### 4.10 Menu
+* `LoadSessionMenuSelected`:
+  * Fills all sections based on data from loaded .mat file
+  * Loads data from .mat file and fills up **Project Info**, **Architecture**, **Simulate**, **Performance**
+  * Populates **Table** in **Operational Profiles**
+  * Selects components in **Component Selection**
+  * Clears all figures and results tables
+  * Selects plotting options for **Plot selection** in **Simulate**, **Left plot** and **Right plot** in **Results** if needed
+  * Selects **include GT results** checkbox in **Results** if needed
+  * Calls `ClearTableButtonPushed`, `BusbarTypeButtonGroupSelectionChanged`,
+`PropellerModeDropDownValueChanged`, `updateComponentSelectionTable`, `ESSnParEditFieldValueChanged`, `updateDataSimVar`, 
+`LoadPlotselctionDropDownValueChanged`, `ComputePerformanceButtonPushed`, `ResultsLeftaxisDropDownValueChanged`, 
+`ResultsRightaxisDropDownValueChanged`, `updateResultsTable`
+* `SaveSessionMenuSelected`:
+  * Saves variables values and exports to .mat file
 
 ### 4.11 Ready Map
 * `displayErrorMessage`:
@@ -104,7 +118,7 @@
   * Saves the results to an Excel file
 * `startUpFcn`:
   * Imports component libraries, functions, and testing files
-  * Calls `initializeComponentTable`, `updateArchitecture`, and `updateComponentSelectionTable`
+  * Calls `initializeComponentTable`, `updateArchitecture`, `BusbarTypeButtonGroupSelectionChanged`, and `updateComponentSelectionTable`
   * Updates variables based on user inputs for **Project Info**
   * Adds date for user selection
   * Initialises **Ship Resistance** Table in **Performance**
