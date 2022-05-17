@@ -44,7 +44,6 @@
   * Enables and initialises entry fields for **Average Load**
   * Populates column names on **Table**
   * Initialises variables for **Table**
-* 
 ### 4.4 Component Selection
 ### 4.5 Cost and Sizing
 ### 4.6 Simulate
@@ -61,10 +60,11 @@
   * Sets display style and plots results on **Simulation Plots**
   * Plots GT results on **Simulation Plots** if selected
 ### 4.8 Performance
-* testing
 ### 4.9 Optimize
 ### 4.10 Menu
 ### 4.11 Ready Map
 * `displayErrorMessage`:
   * Displays current error messages
 ### 4.12 General Functions
+* `clearEditField`:
+  * Clears and resets all user inputs to the default value of 0
