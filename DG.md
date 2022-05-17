@@ -26,7 +26,7 @@
 ## 1. Introduction
 IPSOMEDT_Marine is a tool for marine engine development.
 This developer guide provides information on the architecture and design of the application. 
-It aims to provide a fast and efficient reference for software understanding, testing, debugging, and maintenance.
+It aims to provide a fast and efficient reference for code understanding, testing, debugging, and maintenance.
 It will not only help you get started as a IPSOMEDT_Marine contributor, but that you will find useful to refer to even if you are already a contributor of this project.
 
 ## 2. Setting up
