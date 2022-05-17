@@ -48,11 +48,13 @@
   * Toggles visibility for **Component Selection**
   * Enables **Run GT-Suite checkbox** in **Results**
   * Enables editability for **Component Selection**
+  
 ### 4.3 Operational Profile
 * `updateOperationalProfile`:
   * Enables and initialises entry fields for **Average Load**
   * Populates column names on **Table**
   * Initialises table variables
+
 ### 4.4 Component Selection
 * `updateComponentSelectionTable`:
   * Obtains variables values based on user inputs for **Component Selection**
@@ -62,11 +64,14 @@
   * Initialises variables
   * Initialises column formats and column names
   * Adds selection options 
+
 ### 4.5 Cost and Sizing
+
 ### 4.6 Simulate
 * `updateDataSimVar`:
   * Clear and read data from the library, **User-defined Parameters**, and **Operational Profile**
   * Initialises simulation variables
+
 ### 4.7 Results
 * `updateSfcResultsTable`:
   * Populates column names on **Fuel Consumption Table**
@@ -77,18 +82,25 @@
 * `updateResultsPlot`:
   * Sets display style and plots results on **Simulation Plots** based on user selection
   * Plots GT results on **Simulation Plots** if selected
+
 ### 4.8 Performance
 * `updatePerformancePlot`:
   * Plots computed results on **Performance Plots** based on user selection of **Performance plot to display**
+
 ### 4.9 Optimize
 * `checkOptConstraints`:
   * Checks optimisation constraints
+
 ### 4.10 Menu
+
 ### 4.11 Ready Map
 * `displayErrorMessage`:
   * Displays current error messages
+
 ### 4.12 General Functions
 * `clearEditField`:
   * Clears and resets all user inputs to the default value of 0
 * `save_close_excelfile`:
   * Saves the results to an Excel file
+* `startUpFcn`:
+  * 
