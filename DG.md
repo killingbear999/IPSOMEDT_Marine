@@ -79,6 +79,23 @@ As a developer, this program requires the installation of MATLAB.
   * Computes and updates column 1 of **HSG prop. speed (rpm)**
 * `HSGproploadkWEditField2ValueChanged`:
   * Computes and updates column 2 of **HSG prop. speed (rpm)**
+* `AddTaskButtonPushed`:
+  * Populates and append new task row to **Table** based on user selected row index and user input task information
+  * Sorts task rows based on index for **Table** 
+* `TasktypeDropDownValueChanged`:
+  * Enables and initialises **Shore power (kW)** based on user selected **Task type**
+* `DeleteTaskButtonPushed`:
+  * Deletes task row form **Table** based on user selected row index
+* `ClearTableButtonPushed`:
+  * Clears plots of **Operational Profiles** for **Simulate**, **Simulation Plots** for **Results**
+  * Clears tables of **Table** for **Operational Profile**, **Summary** for **Results**, **Fuel Consumption Table** for **Results**
+  * Calls `updateDataSimVar`
+* `ImportfromExcelButtonPushed`:
+  * Imports data from Excel that is matched with the user selected architectures
+* `OpTaskTableDisplayDataChanged`:
+  * Updates variables values for **Table** after user manually edits cell values in **Table**
+* `OpTaskTableCellSelection`:
+  * Gets and updates **at index** based on the position of the cells selected by user from the **Table** 
 
 ### 4.4 Component Selection
 * `updateComponentSelectionTable`:
@@ -89,6 +106,9 @@ As a developer, this program requires the installation of MATLAB.
   * Initialises variables
   * Initialises column formats and column names
   * Adds selection options 
+* `UITableEngineHSGDisplayDataChanged`, `UITableEngineDGDisplayDataChanged`, `UITableHotelConvDisplayDataChanged`, `UITableFCDisplayDataChanged`,
+`UITableESSDisplayDataChanged`:
+  * Calls `updateComponentSelectionTable`
 
 ### 4.5 Cost and Sizing
 
@@ -96,6 +116,20 @@ As a developer, this program requires the installation of MATLAB.
 * `updateDataSimVar`:
   * Clear and read data from the library, **User-defined Parameters**, and **Operational Profile**
   * Initialises simulation variables
+* `ESSnParEditFieldValueChanged`:
+  * Computes and updates values for **ESS energy capacity (kWh)**, **Max ESS charging P (kW)**, and **Max ESS discharging P (kW)** 
+for **Simulate** after user manually edits the value of **No. of ESS cells in parallel** for **Simulate**
+* `LoadPlotselectionDropDownValueChanged`:
+  * Plots the results on **Operational Profile** in **Simulate** based on user selected **Plot selection**
+  * Calls `updateDataSimVar`
+* `OptimizationoptionDropDownValueChanged`:
+  * Enables **Final ESS SOC (%)**, **Fuel cost for opt. ($)**, **Hydrogen cost for opt. ($)** in **User-defined Parameters** based on user selected **Optimization option**
+* `SimulateButtonPushed`:
+  * Calls `updateDataSimvar`, `updateResultsTable`, `ResultsRightyaxisDropDownValueChanged`, `ResultsLeftyaxisDropDownValueChanged`
+  * Run the simulation based on user selected **Optimization option**
+  * Resets **Left plot** and **Right plot** in **Results** to the default value of 'None'
+  * Updates **Simulation plots** and **Fuel Consumption Table** in **Results**
+  * Displays 'Ready' in green for **Ready Map** after simulation completed
 
 ### 4.7 Results
 * `updateSfcResultsTable`:
@@ -107,10 +141,40 @@ As a developer, this program requires the installation of MATLAB.
 * `updateResultsPlot`:
   * Sets display style and plots results on **Simulation Plots** based on user selection
   * Plots GT results on **Simulation Plots** if selected
+* `ResultsLeftyaxisDropDownValueChanged`:
+  * Updates variable value for **Left plot** based on user selected option for **Left plot**
+  * Calls `updateResutlsPlot`
+* `ResultsRightyaxisDropDownValueChanged`:
+  * Updates variable value for **Right plot** based on user selected option for **Right plot**
+  * Calls `updateResutlsPlot`
+* `RunGTSuiteButtonPushed`:
+  * Packs data and outputs to an Excel file
+  * Run GT-Suite, which is a third-party industry-standard engine simulation library, on the Excel file
+  * Imports the results from the Excel file after GT-Suite simulation is finished
+  * Enables **include GT Results in plots** checkbox
+* `PlotGTCheckBoxValueChanged`:
+  * Calls `ResultsRightyaxisDropDownValueChanged`, `ResultsLeftyaxisDropDownValueChanged`
 
 ### 4.8 Performance
 * `updatePerformancePlot`:
   * Plots computed results on **Performance Plots** based on user selection of **Performance plot to display**
+* `AddNewRowButtonPushed`:
+  * Populates new task row on **Ship Resistance Table**
+  * Sets variables of the new task row to the default value of 0
+* `DeleteSelectedRowButtonPushed`:
+  * Deletes user selected rows from **Ship Resistance Table**
+* `ShipResistanceTableCellSelection`:
+  * Gets and updates variable based on the positions of the cells selected by user from the **Ship Resistance Table**
+* `ComputePerformanceButtonPushed`:
+  * Reads data from libraries, **Simulate**, **Ship Resistance Table**
+  * Computes performance
+  * Calls `updatePerformancePlot`
+* `PerformancePlotChoiceDropDownValueChanged`:
+  * Calls `ComputePerformanceButtonPushed`
+* `PerformancePlotsHoldButtonValueChanged`:
+  * Retains current plots when adding new plots for **Performance plots**
+* `PerformancePlotClearButtonPushed`:
+  * Clears current plots when adding new plots for **Performance plots**
 
 ### 4.9 Optimize
 * `checkOptConstraints`:
