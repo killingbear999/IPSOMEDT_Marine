@@ -179,6 +179,12 @@ for **Simulate** after user manually edits the value of **No. of ESS cells in pa
 ### 4.9 Optimize
 * `checkOptConstraints`:
   * Checks optimisation constraints
+* `CopyfromPerformanceTabButtonPushed`:
+  * Fills in the data for **Optimization constraints** from **Performance Results**
+* `OptimizeButtonPushed`:
+  * Runs optimisation
+  * Displays messages on **Optimization log**
+  * Calls `ComputePerformanceButtonPushed`, `checkOptConstraints`
 
 ### 4.10 Menu
 * `LoadSessionMenuSelected`:
@@ -197,6 +203,8 @@ for **Simulate** after user manually edits the value of **No. of ESS cells in pa
   * Saves variables values and exports to .mat file
 * `RefresheddisplaymessageMenuSelected`:
   * Displays 'ready' in green as the **Ready Map**
+* `ExporttoPowerPointMenuSelected`:
+  * Exports results to PPT slides
 
 ### 4.11 Ready Map
 * `displayErrorMessage`:
