@@ -77,8 +77,10 @@ As a developer, this program requires the installation of MATLAB.
   * Calls `HSGproploadkWEditFieldValueChanged`
 * `HSGproploadkWEditFieldValueChanged`:
   * Computes and updates column 1 of **HSG prop. speed (rpm)**
+  * Calls `computeMeWrpmP`
 * `HSGproploadkWEditField2ValueChanged`:
   * Computes and updates column 2 of **HSG prop. speed (rpm)**
+  * Calls `computeMeWrpmP`
 * `AddTaskButtonPushed`:
   * Populates and append new task row to **Table** based on user selected row index and user input task information
   * Sorts task rows based on index for **Table** 
@@ -150,7 +152,7 @@ for **Simulate** after user manually edits the value of **No. of ESS cells in pa
 * `OptimizationoptionDropDownValueChanged`:
   * Enables **Final ESS SOC (%)**, **Fuel cost for opt. ($)**, **Hydrogen cost for opt. ($)** in **User-defined Parameters** based on user selected **Optimization option**
 * `SimulateButtonPushed`:
-  * Calls `updateDataSimvar`, `updateResultsTable`, `ResultsRightyaxisDropDownValueChanged`, `ResultsLeftyaxisDropDownValueChanged`
+  * Calls `updateDataSimvar`, `updateResultsTable`, `ResultsRightyaxisDropDownValueChanged`, `ResultsLeftyaxisDropDownValueChanged`, `computePMS`, `opti_IPSOMEDTV3`
   * Run the simulation based on user selected **Optimization option**
   * Resets **Left plot** and **Right plot** in **Results** to the default value of 'None'
   * Updates **Simulation plots** and **Fuel Consumption Table** in **Results**
@@ -177,6 +179,7 @@ for **Simulate** after user manually edits the value of **No. of ESS cells in pa
   * Run GT-Suite, which is a third-party industry-standard engine simulation library, on the Excel file
   * Imports the results from the Excel file after GT-Suite simulation is finished
   * Enables **include GT Results in plots** checkbox
+  * Calls `GTChangeModelParameter`, `GTFindIdx`, `GTReadData`
 * `PlotGTCheckBoxValueChanged`:
   * Calls `ResultsRightyaxisDropDownValueChanged`, `ResultsLeftyaxisDropDownValueChanged`
 
@@ -193,7 +196,7 @@ for **Simulate** after user manually edits the value of **No. of ESS cells in pa
 * `ComputePerformanceButtonPushed`:
   * Reads data from libraries, **Simulate**, **Ship Resistance Table**
   * Computes performance
-  * Calls `updatePerformancePlot`
+  * Calls `updatePerformancePlot`, `computePerformance`
 * `PerformancePlotChoiceDropDownValueChanged`:
   * Calls `ComputePerformanceButtonPushed`
 * `PerformancePlotsHoldButtonValueChanged`:
@@ -230,6 +233,7 @@ for **Simulate** after user manually edits the value of **No. of ESS cells in pa
   * Displays 'ready' in green as the **Ready Map**
 * `ExporttoPowerPointMenuSelected`:
   * Exports results to PPT slides
+  * Calls `GenerateTableInPowerpoint`, `PlotExcel2DDiagram`, `PlotExcel2DIntoPowerpoint`
 
 ### 4.11 Ready Map
 * `displayErrorMessage`:
@@ -247,4 +251,31 @@ for **Simulate** after user manually edits the value of **No. of ESS cells in pa
   * Adds date for user selection
   * Initialises **Ship Resistance** Table in **Performance**
   * Formats alignment for **Fuel Consumption Table** in **Results** and **Ship Resistance Table** in **Performance**
+* `computeEmPmaxWrpm`:
+  * Computes for eMotor power limits at different shaft speeds
+* `computeMePwrpm`:
+  * Computes for engine shaft speed deviations based on engine-propeller curve
+  * Calls `computeEmPmaxWrpm`
+* `computeMeWrpmP`:
+  * Computes for engine shaft speed deviations based on engine-propeller curve
+  * Calls `computeEmPmaxWrpm`
+* `computePerformance`:
+  * Computes performance
+  * Calls `computeEmPmaxWrpm`, `computeMePwrpm`, `computeMeWrpmP`
+* `computePMS`:
+  * Computes PMS by following General Power Flow Control Implementation Logic
+* `GenerateTableInPowerpoint`:
+  * Generates table in PPT
+* `GTChangeModelParameter`:
+  * Changes GT model parameters
+* `GTFindIdx`:
+  * Finds index of a variable within a GTData structure based on the provided name
+* `GTReadData`:
+  * Read GTData from files
+* `opti_IPSOMEDTC3`:
+  * Runs optimisation
+* `PlotExcel2DDiagram`:
+  * Plots Excel 2D Diagram
+* `PlotExcel2DIntoPowerpoint`
+  * Plots Excel 2D Diagram on PPT slides
 
