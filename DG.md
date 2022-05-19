@@ -111,6 +111,31 @@ As a developer, this program requires the installation of MATLAB.
   * Calls `updateComponentSelectionTable`
 
 ### 4.5 Cost and Sizing
+* `CalculatePowerTrainButtonPushed`:
+  * Exports results to Excel file
+  * Reads data from Excel file for **EM Chasis** and **Trust Chasis** for **Power Train**
+  * Reads summary of power train from Excel files for bottom left table
+* `ComponentsListBoxValueChanged`:
+  * Writes **Components** value from **Genset** to Excel file
+* `GensetfromlistListBoxValueChanged`:
+  * Writes **Genset from list** value from **Genset** to Excel file
+* `ACloadListBoxValueChanged`:
+  * Writes **AC load** value from **Transformer** to Excel file
+* `ShoreListBoxValueChanged`:
+  * Writes **Shore** value from **Transformer** to Excel file
+* `CalculatesupplyswithboardandautomationButtonPushed`:
+  * Reads values for **Genset**, **Battery**, and **Transformer** from Excel file
+  * Read summary of supply, switchboard, and automation from Excel file for bottom right table
+  * Exports tables to PPT slides
+  * Calls `GenerateTableInPowerpoint`
+* `PowerinputkWEditFieldValueChanged`:
+  * Writes **Power Input (kW)** value of **AC load** from **Transformer** to Excel file
+* `PowerinputkWEditField_2ValueChanged`:
+  * Writes **Power Input (kW)** value of **Shore** from **Transformer** to Excel file
+* `Powerkwh_totalEditFieldValueChanged`:
+  * Writes **Power/kwh_total** value from **Battery** to Excel file
+* `PowerinputKWeFieldValueChanged`:
+  * Writes **Power input/kWe** value from **Genset** to Excel file
 
 ### 4.6 Simulate
 * `updateDataSimVar`:
