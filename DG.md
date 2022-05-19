@@ -7,6 +7,15 @@
 2. [Setting up](#2-setting-up)
 3. [Design](#3-design)
     1. [High Level Architecture](#31-high-level-architecture)
+    2. [Project Info](#32-project-info)
+    3. [Architecture](#33-architecture)
+    4. [Operational Profile](#34-operational-profile)
+    5. [Component Selection](#35-component-selection)
+    6. [Cost and Sizing](#36-cost-and-sizing)
+    7. [Simulate](#37-simulate)
+    8. [Results](#38-results)
+    9. [Performance](#39-performance)
+    10. [Optimize](#310-optimize)
 4. [Implementation](#4-implementation)
     1. [Project Info](#41-project-info)
     2. [Architecture](#42-architecture)
@@ -34,6 +43,34 @@ As a developer, this program requires the installation of MATLAB.
 
 ## 3. Design
 ### 3.1 High Level Architecture
+![image](images/HighLevelArchitecture.png)
+
+### 3.2 Project Info
+![image](images/Project Info.png)
+
+### 3.3 Architecture
+![image](images/Architecture.png)
+
+### 3.4 Operational Profile
+![image](images/Operational Profile.png)
+
+### 3.5 Component Selection
+![image](images/Component Selection.png)
+
+### 3.6 Cost and Sizing
+![image](images/Cost and Sizing.png)
+
+### 3.7 Simulate
+![image](images/Simulate.png)
+
+### 3.8 Results
+![image](images/Results.png)
+
+### 3.9 Performance
+![image](images/Performance.png)
+
+### 3.10 Optimize
+![image](images/Optimize.png)
 
 ## 4. Implementation
 ### 4.1 Project Info
@@ -58,12 +95,12 @@ As a developer, this program requires the installation of MATLAB.
   * Toggles visibility for **Component Selection**
   * Enables **Run GT-Suite checkbox** in **Results**
   * Enables editability for **Component Selection**
-  * Calls `ClearTableButtonPushed`, `updateOperationalProfile`, `updateSingleLineDiagram`, and `updateSfcResultsTable`
+  * Calls `ClearTableButtonPushed`, `updateOperationalProfile`, `updateSingleLineDiagram`, `updateSfcResultsTable`
 * `BusbartypeButtonGroupSelectionChanged`:
   * Enables **Frequency (Hz)** based on user selected busbar type
 * `ShoreConnectionAvailDropDownValueChanged`, `BoostAlloweDropDownValueChanged`, `nDgDropDownValueChanged`, `nTdDropDownValueChanged`,
   `nAuxLoadDropDownValueChanged`, `nEssDropDownValueChanged`, `nHsgDropDownValueChanged`, `nFCDropDownValueChanged`:
-  * Calls `updateArchitecture`
+  * Calls `updateArchitecture`, `updateComponentSelectionTable`, `updateCostandSizeTable`
   
 ### 4.3 Operational Profile
 * `updateOperationalProfile`:
@@ -110,47 +147,32 @@ As a developer, this program requires the installation of MATLAB.
   * Adds selection options 
 * `UITableEngineHSGDisplayDataChanged`, `UITableEngineDGDisplayDataChanged`, `UITableHotelConvDisplayDataChanged`, `UITableFCDisplayDataChanged`,
 `UITableESSDisplayDataChanged`:
-  * Calls `updateComponentSelectionTable`
+  * Calls `updateComponentSelectionTable`, `updateCostandSizeTable`
 
 ### 4.5 Cost and Sizing
-* `CalculatePowerTrainButtonPushed`:
-  * Exports results to Excel file
-  * Reads data from Excel file for **EM Chasis** and **Trust Chasis** for **Power Train**
-  * Reads summary of power train from Excel files for bottom left table
-* `ComponentsListBoxValueChanged`:
-  * Writes **Components** value from **Genset** to Excel file
-* `GensetfromlistListBoxValueChanged`:
-  * Writes **Genset from list** value from **Genset** to Excel file
-* `ACloadListBoxValueChanged`:
-  * Writes **AC load** value from **Transformer** to Excel file
-* `ShoreListBoxValueChanged`:
-  * Writes **Shore** value from **Transformer** to Excel file
-* `CalculatesupplyswithboardandautomationButtonPushed`:
-  * Reads values for **Genset**, **Battery**, and **Transformer** from Excel file
-  * Read summary of supply, switchboard, and automation from Excel file for bottom right table
-  * Exports tables to PPT slides
-  * Calls `GenerateTableInPowerpoint`
-* `PowerinputkWEditFieldValueChanged`:
-  * Writes **Power Input (kW)** value of **AC load** from **Transformer** to Excel file
-* `PowerinputkWEditField_2ValueChanged`:
-  * Writes **Power Input (kW)** value of **Shore** from **Transformer** to Excel file
-* `Powerkwh_totalEditFieldValueChanged`:
-  * Writes **Power/kwh_total** value from **Battery** to Excel file
-* `PowerinputKWeFieldValueChanged`:
-  * Writes **Power input/kWe** value from **Genset** to Excel file
+* `updateCostandSizeTable`:
+  * Undates variable values from user inputs
+  * Writes the values to Excel file
+  * Reads data from Excel file and displays on **Table**
+* `Acload_RatedpowerkWEditFieldValueChanged`, `PowerinputkWEditField_2ValueChanged`, `ESS_RatedenergykWhEditFieldValueChanged`,
+`DG_RatedpowerkWEditFieldValueChanged`, `NumberofcomponentsDropDownValueChanged`, `SelectgensetfromlistDropDownValueChanged`,
+`NoofACloadsDropDownValueChanged`, `ShoreDropDownValueChanged`, `ACload_RatedpoerkWEditFieldValueChanged2`, 
+`Shore_RatedpowerkWEditFieldValueChanged`:
+  * Calls `updateCostandSizeTable`
 
 ### 4.6 Simulate
 * `updateDataSimVar`:
   * Clear and read data from the library, **User-defined Parameters**, and **Operational Profile**
   * Initialises simulation variables
 * `ESSnParEditFieldValueChanged`:
-  * Computes and updates values for **ESS energy capacity (kWh)**, **Max ESS charging P (kW)**, and **Max ESS discharging P (kW)** 
+  * Computes and updates values for **ESS energy capacity (kWh)**, **Max ESS charging P (kW)**, and **Max ESS discharging P (kW)**
 for **Simulate** after user manually edits the value of **No. of ESS cells in parallel** for **Simulate**
+  * Calls `updateCostandSizeTable`
 * `LoadPlotselectionDropDownValueChanged`:
   * Plots the results on **Operational Profile** in **Simulate** based on user selected **Plot selection**
   * Calls `updateDataSimVar`
 * `OptimizationoptionDropDownValueChanged`:
-  * Enables **Final ESS SOC (%)**, **Fuel cost for opt. ($)**, **Hydrogen cost for opt. ($)** in **User-defined Parameters** based on user selected **Optimization option**
+  * Enables **Final ESS SOC (%)**, **Fuel cost for opt. ($)**, **Hydrogen cost for opt. ($)**, **Shore energy cost ($/kWh)**, **Hydrogen limit** in **User-defined Parameters** based on user selected **Optimization option**
 * `SimulateButtonPushed`:
   * Calls `updateDataSimvar`, `updateResultsTable`, `ResultsRightyaxisDropDownValueChanged`, `ResultsLeftyaxisDropDownValueChanged`, `computePMS`, `opti_IPSOMEDTV3`
   * Run the simulation based on user selected **Optimization option**
@@ -170,10 +192,10 @@ for **Simulate** after user manually edits the value of **No. of ESS cells in pa
   * Plots GT results on **Simulation Plots** if selected
 * `ResultsLeftyaxisDropDownValueChanged`:
   * Updates variable value for **Left plot** based on user selected option for **Left plot**
-  * Calls `updateResutlsPlot`
+  * Calls `updateResultsPlot`
 * `ResultsRightyaxisDropDownValueChanged`:
   * Updates variable value for **Right plot** based on user selected option for **Right plot**
-  * Calls `updateResutlsPlot`
+  * Calls `updateResultsPlot`
 * `RunGTSuiteButtonPushed`:
   * Packs data and outputs to an Excel file
   * Run GT-Suite, which is a third-party industry-standard engine simulation library, on the Excel file
@@ -226,7 +248,7 @@ for **Simulate** after user manually edits the value of **No. of ESS cells in pa
   * Calls `ClearTableButtonPushed`, `BusbarTypeButtonGroupSelectionChanged`,
 `PropellerModeDropDownValueChanged`, `updateComponentSelectionTable`, `ESSnParEditFieldValueChanged`, `updateDataSimVar`, 
 `LoadPlotselctionDropDownValueChanged`, `ComputePerformanceButtonPushed`, `ResultsLeftaxisDropDownValueChanged`, 
-`ResultsRightaxisDropDownValueChanged`, `updateResultsTable`
+`ResultsRightaxisDropDownValueChanged`, `updateResultsTable`, `updateCostandSizeTable`
 * `SaveSessionMenuSelected`:
   * Saves variables values and exports to .mat file
 * `RefresheddisplaymessageMenuSelected`:
@@ -246,7 +268,7 @@ for **Simulate** after user manually edits the value of **No. of ESS cells in pa
   * Saves the results to an Excel file
 * `startUpFcn`:
   * Imports component libraries, functions, and testing files
-  * Calls `initializeComponentTable`, `updateArchitecture`, `BusbarTypeButtonGroupSelectionChanged`, and `updateComponentSelectionTable`
+  * Calls `initializeComponentTable`, `updateArchitecture`, `BusbarTypeButtonGroupSelectionChanged`, `updateCostandSizeTable`, and `updateComponentSelectionTable`
   * Updates variables based on user inputs for **Project Info**
   * Adds date for user selection
   * Initialises **Ship Resistance** Table in **Performance**
