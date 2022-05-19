@@ -1,0 +1,12 @@
+@startuml
+ :User: as user        #tan
+user<-right->(Project Info)
+user<-right->(Architecture)
+user<-left->(Operational Profile)
+user<-left->(Component Selection)
+user<-up->(Cost and Sizing)
+user<-up->(Simulate)
+user<-down->(Results)
+user<-down->(Performance)
+user<-down->(Optimize)
+@enduml

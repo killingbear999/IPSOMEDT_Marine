@@ -1,0 +1,5 @@
+@startuml
+(Component Selection)-->(Simulate)
+(Component Selection)-->(Component Selection)
+(Component Selection)-->(Cost and Sizing)
+@enduml
